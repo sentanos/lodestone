@@ -21,6 +21,7 @@ import {
 import { openPort, stopCli } from 'utils/apis';
 import InputField from 'components/Atoms/Form/InputField';
 import { useDocumentTitle } from 'usehooks-ts';
+import packageinfo from '../../../package.json';
 
 export const CoreSettings = () => {
   useDocumentTitle('Lodestone Core Settings - Lodestone');
@@ -288,6 +289,85 @@ export const CoreSettings = () => {
     </div>
   );
 
+  const coreVersionField = (
+    <div className="relative flex flex-row items-center justify-between gap-4 bg-gray-800 px-4 py-3 text-h3">
+      <div className="flex min-w-0 grow flex-col">
+        <label className="text-medium font-medium text-gray-300">
+          Core version: {coreInfo?.version}
+        </label>
+      </div>
+    </div>
+  );
+
+  const dashboardVersionField = (
+    <div className="relative flex flex-row items-center justify-between gap-4 bg-gray-800 px-4 py-3 text-h3">
+      <div className="flex min-w-0 grow flex-col">
+        <label className="text-medium font-medium text-gray-300">
+          Dashboard version: {packageinfo.version}
+        </label>
+      </div>
+    </div>
+  );
+
+  const osField = (
+    <div className="relative flex flex-row items-center justify-between gap-4 bg-gray-800 px-4 py-3 text-h3">
+      <div className="flex min-w-0 grow flex-col">
+        <label className="text-medium font-medium text-gray-300">
+          OS: {coreInfo?.os}
+        </label>
+      </div>
+    </div>
+  );
+
+  const architectureField = (
+    <div className="relative flex flex-row items-center justify-between gap-4 bg-gray-800 px-4 py-3 text-h3">
+      <div className="flex min-w-0 grow flex-col">
+        <label className="text-medium font-medium text-gray-300">
+          Architecture: {coreInfo?.arch}
+        </label>
+      </div>
+    </div>
+  );
+
+  const cpuField = (
+    <div className="relative flex flex-row items-center justify-between gap-4 bg-gray-800 px-4 py-3 text-h3">
+      <div className="flex min-w-0 grow flex-col">
+        <label className="text-medium font-medium text-gray-300">
+          CPU: {coreInfo?.cpu}
+        </label>
+      </div>
+    </div>
+  );
+
+  const cpuCountField = (
+    <div className="relative flex flex-row items-center justify-between gap-4 bg-gray-800 px-4 py-3 text-h3">
+      <div className="flex min-w-0 grow flex-col">
+        <label className="text-medium font-medium text-gray-300">
+          CPU Cores: {coreInfo?.cpu_count}
+        </label>
+      </div>
+    </div>
+  );
+
+  function formatRamSize(totalRam?: number): string {
+    if (!totalRam) return "No ram? How are you running lodestone?";
+    const exponent = Math.floor(Math.log2(totalRam) / 10);
+    const size = (totalRam / Math.pow(1024, exponent)).toFixed(2);
+    const unit = ['B', 'KB', 'MB', 'GB', 'TB'][exponent];
+    return `${size} ${unit}`;
+  }
+
+  const ramField = (
+    <div className="relative flex flex-row items-center justify-between gap-4 bg-gray-800 px-4 py-3 text-h3">
+      <div className="flex min-w-0 grow flex-col">
+        <label className="text-medium font-medium text-gray-300">
+          {/* This should be a function but i want to keep it small */}
+          Total RAM: {formatRamSize(coreInfo?.total_ram)}
+        </label>
+      </div>
+    </div>
+  );
+
   return (
     <>
       {safeModeDialog}
@@ -317,9 +397,28 @@ export const CoreSettings = () => {
                 These settings can cause irreversible damage to your server!
               </h3>
             </div>
-            <div className="w-full rounded-lg border border-red-faded child:w-full child:border-b child:border-gray-faded/30 first:child:rounded-t-lg last:child:rounded-b-lg last:child:border-b-0 mb-10">
+            <div className="mb-10 w-full rounded-lg border border-red-faded child:w-full child:border-b child:border-gray-faded/30 first:child:rounded-t-lg last:child:rounded-b-lg last:child:border-b-0">
               {unsafeModeField}
               {openPortField}
+            </div>
+          </div>
+          <div className="flex w-full flex-col gap-4 @4xl:flex-row">
+            <div className="w-[28rem]">
+              <h2 className="text-h2 font-bold tracking-medium">
+                Information
+              </h2>
+              <h3 className="text-h3 font-medium italic tracking-medium text-white/50">
+                This is information about your core and dashboard
+              </h3>
+            </div>
+            <div className="w-full rounded-lg border border-gray-faded/30 child:w-full child:border-b child:border-gray-faded/30 first:child:rounded-t-lg last:child:rounded-b-lg last:child:border-b-0">
+              {coreVersionField}
+              {dashboardVersionField}
+              {osField}
+              {architectureField}
+              {cpuField}
+              {cpuCountField}
+              {ramField}
             </div>
           </div>
         </div>
