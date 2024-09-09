@@ -20,7 +20,7 @@ A free, open source server hosting tool for Minecraft and other multiplayers gam
 - [x] Collaborative remote server and resource management
 - [x] Priority on safety and security
 - [x] User permission management
-- [x] *(New!)* Extensions via macro (read more [here](https://github.com/Lodestone-Team/lodestone/wiki/Macro-and-Task))
+- [x] *(New!)* Extensions via macro (read more [here](https://github.com/Lodestone-Team/lodestone/wiki/Intro-to-Macro-and-Task))
 - [x] *(New!)* Connect without port forward via playit.gg integration (read more [here](https://github.com/Lodestone-Team/lodestone/wiki/Playit.gg-Integration))
 - [ ] *(New!)* **Manage Docker containers** (WIP 🚧, read more [here](https://github.com/Lodestone-Team/lodestone/wiki/Docker-Instance))
 
